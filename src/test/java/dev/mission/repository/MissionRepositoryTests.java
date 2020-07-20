@@ -41,11 +41,10 @@ public class MissionRepositoryTests {
 		Mission m2 = new Mission();
 		m2.setLibelle("MissionTest2");
 		m2.setTauxJournalier(new BigDecimal("789.123"));
-		m2.setDateDebut(LocalDate.of(2020, 1, 2));
-		m2.setDateFin(LocalDate.of(2020, 3, 4));
+		m2.setDateDebut(LocalDate.of(2020, 10, 10));
+		m2.setDateFin(LocalDate.of(2020, 10, 13));
 		entityManager.persist(m2);
-		List<Mission> missions = missionRepository.ListerProchainesMissionsParTJM(LocalDate.of(2019, 1, 1),
-				new BigDecimal("700.00"));
+		List<Mission> missions = missionRepository.ListerProchainesMissionsParTJM(new BigDecimal("700.00"));
 		assertThat(missions.get(0).getLibelle()).isEqualTo("MissionTest2");
 	}
 

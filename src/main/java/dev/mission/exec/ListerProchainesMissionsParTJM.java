@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 
@@ -12,7 +13,7 @@ import dev.mission.repository.MissionRepository;
 
 @Controller
 @Profile("listerTjm")
-public class ListerProchainesMissionsParTJM implements Runnable {
+public class ListerProchainesMissionsParTJM implements CommandLineRunner {
 	private MissionRepository missionRepository;
 
 	public ListerProchainesMissionsParTJM(MissionRepository missionRepository) {
@@ -21,13 +22,11 @@ public class ListerProchainesMissionsParTJM implements Runnable {
 	}
 
 	@Override
-	public void run() {
-		List<Mission> missions = missionRepository.ListerProchainesMissionsParTJM(LocalDate.of(2019, 3, 30),
-				new BigDecimal("100.00"));
+	public void run(String... args) throws Exception {
+		List<Mission> missions = missionRepository.ListerProchainesMissionsParTJM(new BigDecimal(args[0]));
 		for (Mission mission : missions) {
 			System.out.println(mission.getLibelle() + " " + mission.getDateDebut() + " " + mission.getTauxJournalier());
 		}
-
 	}
 
 }
